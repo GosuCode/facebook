@@ -26,6 +26,14 @@ const Posts = () => {
     useEffect(() => {
         getData();
     }, []);
+
+
+    //Other way to do the same thing as above
+    // useEffect(()=>{
+    //     axios.get("http://localhost:4000/posts").then((res)=>{
+    //         setGetPost(res.data)
+    //     })
+    // })
     return (
         <div className='grid justify-center'>
             {
@@ -49,6 +57,7 @@ const Posts = () => {
                             </div>
 
                             <div>
+                                {val.title} <br />
                                 {val.description}
                             </div>
                         </div>

@@ -25,8 +25,8 @@ const Navbar = () => {
         },
         {
             icons: <IoMdPhotos />,
-            path: '/',
-            tip: 'photos'
+            path: '/addposts',
+            tip: 'Photos'
         },
         {
             icons: <HiUserGroup />,
