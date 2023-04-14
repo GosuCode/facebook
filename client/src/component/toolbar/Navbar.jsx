@@ -25,7 +25,7 @@ const Navbar = () => {
         },
         {
             icons: <IoMdPhotos />,
-            path: '/addposts',
+            path: '/createpost',
             tip: 'Photos'
         },
         {
@@ -77,9 +77,11 @@ const Navbar = () => {
                     links.map((val, i) => {
                         return (
                             <Tooltip title={val.tip} key={i}>
-                                <div className='w-full h-full rounded-md grid justify-center hover:bg-[#303338]'>
-                                    <Link to={val.path}>{val.icons}</Link>
-                                </div>
+                                <Link to={val.path} className='w-full h-full rounded-md grid justify-center hover:bg-[#303338]'>
+                                    <div>
+                                        {val.icons}
+                                    </div>
+                                </Link>
                             </Tooltip>
                         )
                     })

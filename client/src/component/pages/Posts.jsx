@@ -3,6 +3,7 @@ import fbicon from '../assets/fbicon.png'
 import { FiMoreHorizontal } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const Posts = () => {
 
@@ -39,8 +40,9 @@ const Posts = () => {
             {
                 getPost.map((val, i) => {
                     return (
-                        <div className='h-[400px] shadow-lg shadow-black mt-4 rounded-md' key={i}>
-                            <div className='grid grid-cols-12 w-[600px] bg-blue-500 rounded-t-md'>
+
+                        <div className='h-[400px] w-[600px] shadow-lg shadow-black mt-4 rounded-md' key={i}>
+                            <div className='grid grid-cols-12 w-full bg-blue-500 rounded-t-md'>
                                 <div>
                                     <img src={fbicon} alt="" height={40} width={40} />
                                 </div>
@@ -55,11 +57,12 @@ const Posts = () => {
                                     <RxCross2 />
                                 </div>
                             </div>
-
-                            <div>
-                                {val.title} <br />
-                                {val.description}
-                            </div>
+                            <Link to={`/viewmore/${val.id}`}>
+                                <div>
+                                    {val.title} <br />
+                                    {val.description}
+                                </div>
+                            </Link>
                         </div>
                     )
                 })
