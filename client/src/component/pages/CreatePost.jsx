@@ -2,6 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik'
 import * as yup from 'yup'
 import axios from 'axios'
 import { RxCross2 } from 'react-icons/rx'
+import { useNavigate } from 'react-router-dom'
 
 const validationSchema = yup.object().shape({
     title: yup.string().required('Title is required.'),
@@ -29,10 +30,13 @@ const CreatePost = () => {
         username: ''
     }
 
+    const navigate = useNavigate();
+
     const onSubmit = (data) => {
         axios.post("http://localhost:4000/posts", data)
             .then((res) => {
                 console.log(res.data);
+                navigate('/')
             })
     }
 

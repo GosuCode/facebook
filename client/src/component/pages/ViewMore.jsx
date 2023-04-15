@@ -4,21 +4,45 @@ import axios from 'axios'
 import fbicon from '../assets/fbicon.png'
 import { FiMoreHorizontal } from 'react-icons/fi'
 import { RxCross2 } from 'react-icons/rx'
+import { AiOutlineSend } from 'react-icons/ai'
+
 
 
 const ViewMore = () => {
     let { id } = useParams();
 
     const [postObject, setPostObject] = useState({})
+    const [comments, setComments] = useState([])     //for previous comments
+    const [newComment, setNewComment] = useState("")    //for new comments
 
     useEffect(() => {
+        //for posts, to get by id
         axios.get(`http://localhost:4000/posts/byId/${id}`)
             .then((res) => {
                 setPostObject(res.data)
             })
+
+        //for comments, to get by id
+        axios.get(`http://localhost:4000/comments/${id}`)
+            .then((res) => {
+                setComments(res.data)
+            })
     }, [id])
+
+    const addComment = () => {
+        axios.post("http://localhost:4000/comments", {
+            commentBody: newComment,
+            PostId: id
+        })
+            .then((res) => {
+                const commentToAdd = { commentBody: newComment }     //to avoid keep refreshing for every time you comment
+                setComments([...comments, commentToAdd])
+                setNewComment('')      //to set the new comment empty
+            })
+    }
+
     return (
-        <>
+        <div className='grid justify-center'>
             <div className='h-[400px] w-[600px] shadow-lg shadow-black mt-4 rounded-md'>
                 <div className='grid grid-cols-12 w-full bg-blue-500 rounded-t-md'>
                     <div>
@@ -39,8 +63,29 @@ const ViewMore = () => {
                     {postObject.title} <br />
                     {postObject.description}
                 </div>
+
+                <div>
+                    <input type="text" className='focus:outline-none'
+                        value={newComment}
+                        placeholder='Write a comment...' autoComplete='off'
+                        onChange={(e) => { setNewComment(e.target.value) }} />
+
+                    <button onClick={addComment}>
+                        <AiOutlineSend />
+                    </button>
+                </div>
             </div>
-        </>
+
+
+            <div>
+                {comments.map((value, index) => {
+                    return <div key={index}
+                        className='w-[800px] border-2 border-black rounded-sm pt-2 mt-2'>
+                        {value.commentBody}
+                    </div>
+                })}
+            </div>
+        </div>
     )
 }
 

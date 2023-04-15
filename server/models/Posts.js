@@ -13,5 +13,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
         },
     })
+
+    Posts.associate = (models) =>{        //to determine the association with the comments
+        Posts.hasMany(models.Comments),{
+            onDelete: "cascade",   //if you delete the posts, it'll also delete every single of the comments
+        }
+    }
     return Posts;
 }
