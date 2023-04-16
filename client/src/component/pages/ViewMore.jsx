@@ -75,7 +75,7 @@ const ViewMore = () => {
                     </button>
                 </div>
             </div>
-
+            <div className='text-4xl mt-10'>Comments</div>
 
             <div>
                 {comments.map((value, index) => {

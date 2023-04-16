@@ -9,8 +9,16 @@ import { BsMessenger } from 'react-icons/bs'
 import { MdNotifications } from 'react-icons/md'
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom'
+import Sidebar from './Sidebar'
+import { useState } from 'react'
 
 const Navbar = () => {
+
+    const [openSide, setOpenSide] = useState(false)
+
+    const handleSidebar = () => {
+        setOpenSide(!openSide)
+    }
 
     const links = [
         {
@@ -93,13 +101,17 @@ const Navbar = () => {
                         links2.map((val, i) => {
                             return (
                                 <Tooltip title={val.tip} key={i}>
-                                    <div className='w-10 h-10 rounded-full items-center grid justify-center bg-[#303338]'>
+                                    <div className='w-10 h-10 rounded-full items-center grid justify-center bg-[#303338]'
+                                        onClick={handleSidebar}>
                                         {val.icons}
                                     </div>
                                 </Tooltip>
                             )
                         })
                     }
+                </div>
+                <div className={openSide ? 'fixed top-0 right-0 h-full w-[250px] border-r border-l-[#ccc] text-black' : 'fixed right-[-100%]'} >
+                    <Sidebar />
                 </div>
             </div>
         </div>
