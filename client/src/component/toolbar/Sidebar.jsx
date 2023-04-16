@@ -34,7 +34,7 @@ const Sidebar = () => {
     ]
 
     return (
-        <div className=''>
+        <>
             <div className='text-black' onClick={handleSideNav}>
                 {!sideNav ? < AiOutlineMenu size={30} /> : < AiOutlineMenu size={30} />}
             </div>
@@ -54,7 +54,7 @@ const Sidebar = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

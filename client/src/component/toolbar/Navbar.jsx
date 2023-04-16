@@ -1,5 +1,5 @@
 import fbicon from '../assets/fbicon.png'
-import { AiFillHome } from 'react-icons/ai'
+import { AiFillHome, AiOutlineClose } from 'react-icons/ai'
 import { FaUserFriends } from 'react-icons/fa'
 import { IoMdPhotos } from 'react-icons/io'
 import { HiUserGroup } from 'react-icons/hi'
@@ -9,7 +9,6 @@ import { BsMessenger } from 'react-icons/bs'
 import { MdNotifications } from 'react-icons/md'
 import Tooltip from '@mui/material/Tooltip';
 import { Link } from 'react-router-dom'
-import Sidebar from './Sidebar'
 import { useState } from 'react'
 
 const Navbar = () => {
@@ -70,6 +69,33 @@ const Navbar = () => {
             tip: 'Profile'
         },
     ]
+
+    const SidebarData = [
+        {
+            Name: "home",
+            path: '/'
+        },
+        {
+            Name: "categories",
+            path: "/categories"
+        },
+        {
+            Name: "travel",
+            path: "/travel"
+        },
+        {
+            Name: "food",
+            path: "/food"
+        },
+        {
+            Name: "technology",
+            path: "/technology"
+        },
+        {
+            Name: "business",
+            path: "/business"
+        }
+    ]
     return (
         <div className='grid grid-cols-8 bg-[#1C1E21] items-center text-white py-2 px-4 sticky top-0'>
             <div className='grid grid-cols-2'>
@@ -111,7 +137,24 @@ const Navbar = () => {
                     }
                 </div>
                 <div className={openSide ? 'fixed top-0 right-0 h-full w-[250px] border-r border-l-[#ccc] text-black' : 'fixed right-[-100%]'} >
-                    <Sidebar />
+
+                    <div
+                        className={openSide ? 'fixed right-0 h-full w-[250px] border-r border-l-[#ccc] ' : 'fixed right-[-100%]'}>
+                        <div className='bg-white shadow-md h-screen pt-5 px-5 pb-[150px]'>
+                            <span className='absolute top-0 right-2 text-black' onClick={handleSidebar}>
+                                {!openSide ? '' : <AiOutlineClose size={40} />}
+                            </span>
+                            <div className='w-full px-5 h-9'></div>
+                            <div>
+                                {
+                                    SidebarData.map((val, i) => {
+                                        return <div key={i} className='hover:text-[#f79918] py-[5px] px-5 capitalize'><Link to={val.path}>{val.Name}</Link></div>
+                                    })
+                                }
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
