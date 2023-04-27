@@ -33,11 +33,21 @@ const ViewMore = () => {
         axios.post("http://localhost:4000/comments", {
             commentBody: newComment,
             PostId: id
-        })
+        },
+            {
+                headers: {
+                    accessToken: sessionStorage.getItem("accessToken"),
+                },
+            }
+        )
             .then((res) => {
-                const commentToAdd = { commentBody: newComment }     //to avoid keep refreshing for every time you comment
-                setComments([...comments, commentToAdd])
-                setNewComment('')      //to set the new comment empty
+                if (res.data.error) {
+                    console.log(res.data.error);
+                } else {
+                    const commentToAdd = { commentBody: newComment }     //to avoid keep refreshing for every time you comment
+                    setComments([...comments, commentToAdd])
+                    setNewComment('')      //to set the new comment empty
+                }
             })
     }
 
@@ -65,7 +75,7 @@ const ViewMore = () => {
                 </div>
 
                 <div>
-                    <input type="text" className='focus:outline-none text-white'
+                    <input type="text" className='focus:outline-none text-black'
                         value={newComment}
                         placeholder='Write a comment...' autoComplete='off'
                         onChange={(e) => { setNewComment(e.target.value) }} />

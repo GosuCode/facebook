@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 function Login() {
     const [username, setUsername] = useState("");
@@ -8,7 +9,12 @@ function Login() {
     const login = () => {
         const data = { username: username, password: password };
         axios.post("http://localhost:4000/auth/login", data).then((response) => {
-            console.log(response.data);
+            if (response.data.error) {
+                alert(response.data.error);
+            } else {
+                sessionStorage.setItem("accessToken", response.data);
+                Navigate("/");
+            }
         });
     };
     return (
