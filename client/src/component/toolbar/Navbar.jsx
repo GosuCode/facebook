@@ -65,7 +65,7 @@ const Navbar = () => {
         },
         {
             icons: <CgProfile />,
-            path: '/',
+            path: '/login',
             tip: 'Profile'
         },
     ]
@@ -76,12 +76,16 @@ const Navbar = () => {
             path: '/'
         },
         {
-            Name: "categories",
-            path: "/categories"
+            Name: "login",
+            path: '/login '
         },
         {
-            Name: "travel",
-            path: "/travel"
+            Name: "registration",
+            path: "/registration"
+        },
+        {
+            Name: "categories",
+            path: "/categories"
         },
         {
             Name: "food",

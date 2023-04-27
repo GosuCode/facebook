@@ -4,6 +4,8 @@ import Home from './component/pages/Home';
 import Posts from './component/pages/Posts';
 import ViewMore from './component/pages/ViewMore';
 import CreatePost from './component/pages/CreatePost';
+import Login from './component/auth/Login';
+import Registration from './component/auth/Registration';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route exact path='/posts' element={<Posts/> }/>
         <Route exact path='/createpost' element={<CreatePost/> }/>
         <Route exact path='/viewmore/:id' element={<ViewMore/> }/>
+        <Route exact path='/login' element={<Login/> }/>
+        <Route exact path='/registration' element={<Registration/> }/>
       </Routes>
       </Layout>
     </Router>

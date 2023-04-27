@@ -42,7 +42,7 @@ const ViewMore = () => {
     }
 
     return (
-        <div className='grid justify-center'>
+        <div className='grid justify-center text-white'>
             <div className='h-[400px] w-[600px] shadow-lg shadow-black mt-4 rounded-md'>
                 <div className='grid grid-cols-12 w-full bg-blue-500 rounded-t-md'>
                     <div>
@@ -65,7 +65,7 @@ const ViewMore = () => {
                 </div>
 
                 <div>
-                    <input type="text" className='focus:outline-none'
+                    <input type="text" className='focus:outline-none text-white'
                         value={newComment}
                         placeholder='Write a comment...' autoComplete='off'
                         onChange={(e) => { setNewComment(e.target.value) }} />

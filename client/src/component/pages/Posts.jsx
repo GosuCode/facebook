@@ -36,7 +36,7 @@ const Posts = () => {
     //     })
     // })
     return (
-        <div className='grid justify-center'>
+        <div className='grid justify-center text-white'>
             {
                 getPost.map((val, i) => {
                     return (

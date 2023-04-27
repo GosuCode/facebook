@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
+import { AiOutlineClose } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
 const Sidebar = () => {
@@ -35,9 +35,8 @@ const Sidebar = () => {
 
     return (
         <>
-            <div className='text-black' onClick={handleSideNav}>
-                {!sideNav ? < AiOutlineMenu size={30} /> : < AiOutlineMenu size={30} />}
-            </div>
+            <>
+            </>
             <div
                 className={sideNav ? 'fixed right-0 h-full w-[250px] border-r border-l-[#ccc] ' : 'fixed right-[-100%]'}>
                 <div className='bg-white shadow-md h-screen pt-5 px-5 pb-[150px]'>
