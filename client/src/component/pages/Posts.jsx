@@ -4,11 +4,12 @@ import { FiMoreHorizontal } from 'react-icons/fi'
 import { AiFillLike } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Posts = () => {
 
     const [getPost, setGetPost] = useState([])
+    const navigate = useNavigate();
 
     const getData = async () => {
         try {
@@ -24,12 +25,15 @@ const Posts = () => {
             console.log(error);
         }
     }
-
     useEffect(() => {
-        getData();
+        if (!localStorage.getItem("accessToken")) {     //don't go to the posts page if user is not logged in
+            navigate("/login");
+        } else {
+            getData();
+        }
     }, []);
 
-    //Other way to do the same thing as above
+    //Simple way to make get request
     // useEffect(()=>{
     //     axios.get("http://localhost:4000/posts").then((res)=>{
     //         setGetPost(res.data)

@@ -3,14 +3,20 @@ import * as yup from 'yup'
 import axios from 'axios'
 import { RxCross2 } from 'react-icons/rx'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const validationSchema = yup.object().shape({
     title: yup.string().required('Title is required.'),
-    description: yup.string().required('Description is required.'),
-    username: yup.string().required('Username is required.')
+    description: yup.string().required('Description is required.')
 })
 const CreatePost = () => {
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        if (!localStorage.getItem("accessToken")) {     //don't go to the posts page if user is not logged in
+            navigate("/login");
+        }
+    }, [])
 
     const formData = [
         {
@@ -19,21 +25,18 @@ const CreatePost = () => {
         {
             name: 'description',
         },
-        {
-            name: 'username',
-        },
     ]
 
     const initialValues = {
         title: '',
-        description: '',
-        username: ''
+        description: ''
     }
 
-    const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        axios.post("http://localhost:4000/posts", data)
+        axios.post("http://localhost:4000/posts",
+            data,
+            { headers: { accessToken: localStorage.getItem("accessToken") } })
             .then((res) => {
                 console.log(res.data);
                 navigate('/')
