@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import fbicon from '../assets/fbicon.png'
 import { FiMoreHorizontal } from 'react-icons/fi'
+import { AiFillLike } from 'react-icons/ai'
 import { RxCross2 } from 'react-icons/rx'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
@@ -45,7 +46,7 @@ const Posts = () => {
             .then((response) => {
                 setGetPost(
                     getPost.map((post) => {
-                        if (post.id === postId) {
+                        if (post.id === postId) {      //logic to update the likes
                             if (response.data.liked) {
                                 return { ...post, Likes: [...post.Likes, 0] };
                             } else {
@@ -66,7 +67,7 @@ const Posts = () => {
                 getPost.map((val, i) => {
                     return (
 
-                        <div className='h-[400px] w-[600px] shadow-lg shadow-black mt-4 rounded-md' key={i}>
+                        <div className='h-[400px] w-[600px] shadow-lg shadow-black mt-4 rounded-md grid content-between' key={i}>
                             <div className='grid grid-cols-12 w-full bg-blue-500 rounded-t-md'>
                                 <div>
                                     <img src={fbicon} alt="" height={40} width={40} />
@@ -82,20 +83,31 @@ const Posts = () => {
                                     <RxCross2 />
                                 </div>
                             </div>
-                            <Link to={`/viewmore/${val.id}`}>
-                                <div>
-                                    {val.title} <br />
-                                    {val.description}
+                            <div className=''>
+                                <Link to={`/viewmore/${val.id}`}>
+                                    <div>
+                                        {val.title} <br />
+                                        {val.description}
+                                    </div>
+                                </Link>
+                            </div>
+
+                            <div className='w-full bg-gray-500 p-2'>
+                                <div className='flex items-center'>
+                                    <AiFillLike
+                                        size={30}
+                                        className={
+                                            //if a user liked, text color white else black
+                                            val.Likes.includes(0)
+                                                ? "text-white"
+                                                : "text-gray-400"
+                                        }
+                                        onClick={() => {
+                                            likeAPost(val.id);
+                                        }} />
+                                    <label className='ml-2 text-xl'>{val.Likes.length}</label>
                                 </div>
-                            </Link>
-                            <button
-                                onClick={() => {
-                                    likeAPost(val.id);
-                                }}
-                            >
-                                Like
-                            </button>
-                            <label>{val.Likes.length}</label>
+                            </div>
                         </div>
                     )
                 })
