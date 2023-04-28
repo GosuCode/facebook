@@ -10,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
         },
     });
 
-    // Users.associate = (models) =>{        //to determine the association with the Posts
-    //     Users.hasMany(models.Posts),{
-    //         onDelete: "cascade",   //if you delete the posts, it'll also delete every single of the Posts
-    //     }
-    // }
+    Users.associate = (models) =>{
+        Users.hasMany(models.Likes),{
+            onDelete: "cascade",
+        }
+    }
     return Users;
 }

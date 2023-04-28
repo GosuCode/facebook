@@ -28,13 +28,38 @@ const Posts = () => {
         getData();
     }, []);
 
-
     //Other way to do the same thing as above
     // useEffect(()=>{
     //     axios.get("http://localhost:4000/posts").then((res)=>{
     //         setGetPost(res.data)
     //     })
     // })
+
+    const likeAPost = (postId) => {
+        axios
+            .post(
+                "http://localhost:4000/likes",
+                { PostId: postId },
+                { headers: { accessToken: localStorage.getItem("accessToken") } }
+            )
+            .then((response) => {
+                setGetPost(
+                    getPost.map((post) => {
+                        if (post.id === postId) {
+                            if (response.data.liked) {
+                                return { ...post, Likes: [...post.Likes, 0] };
+                            } else {
+                                const likesArray = post.Likes;
+                                likesArray.pop();
+                                return { ...post, Likes: likesArray };
+                            }
+                        } else {
+                            return post;
+                        }
+                    })
+                );
+            });
+    };
     return (
         <div className='grid justify-center text-white'>
             {
@@ -63,6 +88,14 @@ const Posts = () => {
                                     {val.description}
                                 </div>
                             </Link>
+                            <button
+                                onClick={() => {
+                                    likeAPost(val.id);
+                                }}
+                            >
+                                Like
+                            </button>
+                            <label>{val.Likes.length}</label>
                         </div>
                     )
                 })

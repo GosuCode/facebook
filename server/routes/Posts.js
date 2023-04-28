@@ -3,7 +3,7 @@ const router = express.Router();
 const { Posts } = require("../models");
 
 router.get("/", async (req, res) => {
-  const listOfPosts = await Posts.findAll(); //select all element from table Posts and set it equal to listOfPosts
+  const listOfPosts = await Posts.findAll({include:['Likes']}); //select all element from table Posts and set it equal to listOfPosts
   res.json(listOfPosts);       //return listOfPosts
 });
 
