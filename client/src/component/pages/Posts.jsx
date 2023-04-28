@@ -33,13 +33,6 @@ const Posts = () => {
         }
     }, []);
 
-    //Simple way to make get request
-    // useEffect(()=>{
-    //     axios.get("http://localhost:4000/posts").then((res)=>{
-    //         setGetPost(res.data)
-    //     })
-    // })
-
     const likeAPost = (postId) => {
         axios
             .post(
@@ -65,6 +58,21 @@ const Posts = () => {
                 );
             });
     };
+
+    //delete post if the user is the one who created it
+    const deletePost = (id) => {
+        axios
+            .delete(
+                `http://localhost:4000/posts/${id}`,
+                { headers: { accessToken: localStorage.getItem("accessToken") } }
+            )
+            .then((response) => {
+                console.log(response);
+                navigate('/posts');
+                // setGetPost(getPost.filter((post) => post.id !== postId));
+            });
+    }
+
     return (
         <div className='grid justify-center text-white'>
             {
@@ -80,14 +88,22 @@ const Posts = () => {
                                     <p>{val.username}</p>
                                     <p>{val.createdAt}</p>
                                 </div>
-                                <div>
+                                <div className='grid items-center text-xl'>
                                     <FiMoreHorizontal />
                                 </div>
-                                <div>
+                                <div
+                                    //show delete icon if the user is the on who posted
+                                    // style={
+                                    //     val.username === localStorage.getItem("username")
+                                    //         ? { display: "block" }
+                                    //         : { display: "none" }
+                                    // }
+                                    onClick={() => deletePost(val.id)}
+                                    className='grid items-center text-xl'>
                                     <RxCross2 />
                                 </div>
                             </div>
-                            <div className=''>
+                            <div className='text-center'>
                                 <Link to={`/viewmore/${val.id}`}>
                                     <div>
                                         {val.title} <br />
