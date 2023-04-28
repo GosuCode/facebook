@@ -42,7 +42,7 @@ const CreatePost = () => {
 
 
     return (
-        <div className="grid justify-center">
+        <div className="grid justify-center mt-24">
             <Formik
                 initialValues={initialValues}
                 onSubmit={onSubmit}

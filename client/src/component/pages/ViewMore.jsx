@@ -36,7 +36,7 @@ const ViewMore = () => {
         },
             {
                 headers: {
-                    accessToken: sessionStorage.getItem("accessToken"),
+                    accessToken: localStorage.getItem("accessToken"),
                 },
             }
         )
@@ -44,7 +44,7 @@ const ViewMore = () => {
                 if (res.data.error) {
                     console.log(res.data.error);
                 } else {
-                    const commentToAdd = { commentBody: newComment }     //to avoid keep refreshing for every time you comment
+                    const commentToAdd = { commentBody: newComment, username: res.data.username }     //to avoid keep refreshing for every time you comment
                     setComments([...comments, commentToAdd])
                     setNewComment('')      //to set the new comment empty
                 }
@@ -90,8 +90,9 @@ const ViewMore = () => {
             <div>
                 {comments.map((value, index) => {
                     return <div key={index}
-                        className='w-[800px] border-2 border-black rounded-sm pt-2 mt-2'>
-                        {value.commentBody}
+                        className='bg-yellow-800 w-[800px] border-2 border-black rounded-md pt-2 mt-2'>
+                        <label className='bg-blue-500 rounded-sm px-2'>{value.username}</label>
+                        <p className='p-2 '>{value.commentBody}</p>
                     </div>
                 })}
             </div>
